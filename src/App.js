@@ -1,5 +1,6 @@
+import AppRouter from "./router/AppRouter";
 function App() {
-  return <h1>Pets World</h1>;
+  return <AppRouter />;
 }
 
 export default App;
