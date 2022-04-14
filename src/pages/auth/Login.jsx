@@ -14,15 +14,18 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    // axiosFetch({
-    //   axiosInstance: axios,
-    //   method: "post",
-    //   url: "/auth/login",
-    //   requestConfig: {
-    //     data,
-    //   },
-    // });
+    axiosFetch({
+      axiosInstance: axios,
+      method: "post",
+      url: "/auth/logi",
+      requestConfig: {
+        data: JSON.stringify(data),
+      },
+    });
   };
+  console.log("response:", response);
+  console.log("error:", error);
+
   return (
     <Box
       sx={{
@@ -77,6 +80,7 @@ const Login = () => {
         <Button
           variant="contained"
           color="primary"
+          disabled={loading}
           type="submit"
           sx={{
             margin: "1rem 0",
@@ -86,6 +90,7 @@ const Login = () => {
         >
           Iniciar Sesión
         </Button>
+        {!loading && error && <p>{error}</p>}
       </form>
     </Box>
   );

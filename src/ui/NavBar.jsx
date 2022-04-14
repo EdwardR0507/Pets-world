@@ -31,7 +31,7 @@ const NavBar = () => {
         <Stack direction="row" spacing={2}>
           <Button color="inherit">
             <Link
-              to="/register"
+              to="/auth/register"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Registro
@@ -39,7 +39,7 @@ const NavBar = () => {
           </Button>
           <Button color="inherit">
             <Link
-              to="/login"
+              to="/auth/login"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Iniciar Sesión

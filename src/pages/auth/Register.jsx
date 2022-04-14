@@ -9,19 +9,21 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
+  console.log(response);
+  console.log(error);
+
   const onSubmit = (data) => {
-    console.log(data);
-    // axiosFetch({
-    //   axiosInstance: axios,
-    //   method: "post",
-    //   url: "/auth/nuevo",
-    //   requestConfig: {
-    //     data,
-    //   },
-    // });
+    console.log(JSON.stringify(data));
+    axiosFetch({
+      axiosInstance: axios,
+      method: "post",
+      url: "/auth/nuevo",
+      requestConfig: {
+        data: JSON.stringify(data),
+      },
+    });
   };
 
   return (
@@ -110,7 +112,7 @@ const Register = () => {
             variant="outlined"
             required
             pattern={{
-              value: /^[a-zA-ZÀ-ÿ\s\d]{1,40}$/,
+              value: /^[a-zA-ZÀ-ÿ\s\d-]{1,40}$/,
               message: "No se permiten caracteres especiales",
             }}
             errors={errors}
@@ -172,6 +174,7 @@ const Register = () => {
             variant="contained"
             color="primary"
             type="submit"
+            disabled={loading}
             sx={{
               margin: "1rem 0",
               borderRadius: "0.5rem",
@@ -180,6 +183,7 @@ const Register = () => {
           >
             Registrarse
           </Button>
+          {!loading && error && <p>{error}</p>}
         </form>
         <Box
           sx={{ width: "500px", height: "500px", backgroundColor: "green" }}

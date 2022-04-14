@@ -5,8 +5,9 @@ import NavBar from "../ui/NavBar";
 
 const Home = lazy(() => import("../pages/Home"));
 const About = lazy(() => import("../pages/About"));
-const Register = lazy(() => import("../pages/auth/Register"));
-const Login = lazy(() => import("../pages/auth/Login"));
+const AuthRouter = lazy(() => import("./AuthRouter"));
+const PetRouter = lazy(() => import("./PetRouter"));
+const Profile = lazy(() => import("../pages/user/Profile"));
 
 const AppRouter = () => {
   return (
@@ -14,10 +15,11 @@ const AppRouter = () => {
       <Suspense fallback={<Spinner />}>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" index element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/auth/*" element={<AuthRouter />} />
+          <Route path="/user/*" element={<PetRouter />} />
+          <Route path="/user/profile" element={<Profile />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

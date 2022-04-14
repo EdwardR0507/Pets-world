@@ -43,11 +43,14 @@ const Home = () => {
             borderRadius: "0.5rem",
             border: "none",
           }}
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/auth/register")}
         >
           Registrate
         </Button>
-        <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link
+          to="/auth/login"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           ¿Ya tienes una cuenta? Inicia sesión
         </Link>
       </Box>
