@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import TextInput from "../../ui/TextInput";
+import axios from "../../utils/axios/config";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
 const Login = () => {
   const {
     register,
@@ -8,8 +10,18 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const [response, error, loading, axiosFetch] = useAxiosFunction();
+
   const onSubmit = (data) => {
     console.log(data);
+    // axiosFetch({
+    //   axiosInstance: axios,
+    //   method: "post",
+    //   url: "/auth/login",
+    //   requestConfig: {
+    //     data,
+    //   },
+    // });
   };
   return (
     <Box
@@ -36,7 +48,7 @@ const Login = () => {
       >
         <TextInput
           label="Usuario"
-          name="usuario"
+          name="nombreUsuario"
           register={register}
           variant="outlined"
           required
@@ -49,7 +61,7 @@ const Login = () => {
         />
         <TextInput
           label="Contraseña"
-          name="contraseña"
+          name="password"
           register={register}
           variant="outlined"
           type="password"

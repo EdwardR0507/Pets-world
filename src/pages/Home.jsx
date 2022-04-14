@@ -1,7 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -42,6 +43,7 @@ const Home = () => {
             borderRadius: "0.5rem",
             border: "none",
           }}
+          onClick={() => navigate("/register")}
         >
           Registrate
         </Button>
