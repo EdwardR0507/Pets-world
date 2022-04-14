@@ -39,7 +39,6 @@ const Register = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
-            wordBreak: "break-word",
             width: "40%",
             height: "700px",
           }}
