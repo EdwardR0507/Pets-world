@@ -11,11 +11,7 @@ const Register = () => {
   } = useForm();
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
-  console.log(response);
-  console.log(error);
-
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
     axiosFetch({
       axiosInstance: axios,
       method: "post",
@@ -36,7 +32,7 @@ const Register = () => {
         height: "145vh",
       }}
     >
-      <Typography variant="h1">Registro de Usuario</Typography>
+      <Typography variant="h2">Registro de Usuario</Typography>
       <Box
         sx={{
           width: "100%",
@@ -61,7 +57,6 @@ const Register = () => {
             label="Nombre"
             name="nombre"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -73,7 +68,6 @@ const Register = () => {
             label="Apellido Paterno"
             name="apellidoPaterno"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -85,7 +79,6 @@ const Register = () => {
             label="Apellido Materno"
             name="apellidoMaterno"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -97,7 +90,6 @@ const Register = () => {
             label="DNI"
             name="dni"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[0-9]{8}$/,
@@ -109,7 +101,6 @@ const Register = () => {
             label="Dirección"
             name="direccion"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-ZÀ-ÿ\s\d-]{1,40}$/,
@@ -121,7 +112,6 @@ const Register = () => {
             label="Teléfono"
             name="telefono"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[0-9]{9}$/,
@@ -133,7 +123,6 @@ const Register = () => {
             label="Usuario"
             name="nombreUsuario"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-Z0-9_-]{4,16}$/,
@@ -146,7 +135,6 @@ const Register = () => {
             label="Email"
             name="email"
             register={register}
-            variant="outlined"
             required
             pattern={{
               value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -158,7 +146,6 @@ const Register = () => {
             label="Contraseña"
             name="password"
             register={register}
-            variant="outlined"
             type="password"
             required
             pattern={{

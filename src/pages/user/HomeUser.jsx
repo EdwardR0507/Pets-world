@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-const Profile = () => {
+const HomeUser = () => {
   const navigate = useNavigate();
 
   return (
@@ -71,7 +71,7 @@ const Profile = () => {
           >
             <ListItem>
               <Link
-                to="/user/profile"
+                to="/user/pets/1"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 Mascota 1
@@ -79,7 +79,7 @@ const Profile = () => {
             </ListItem>
             <ListItem>
               <Link
-                to="/auth/register"
+                to="/user/pets/2"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 Mascota 2
@@ -87,7 +87,7 @@ const Profile = () => {
             </ListItem>
             <ListItem>
               <Link
-                to="/auth/register"
+                to="/user/pets/3"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 Mascota 3
@@ -157,4 +157,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default HomeUser;

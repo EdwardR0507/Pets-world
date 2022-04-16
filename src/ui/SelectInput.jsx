@@ -1,13 +1,12 @@
 import { FormControl, TextField } from "@mui/material";
 
-const TextInput = ({
+const SelectInput = ({
+  children,
   label,
   name,
   register,
-  pattern,
   variant = "outlined",
   errors,
-  type = "text",
   ...rest
 }) => {
   return (
@@ -16,20 +15,18 @@ const TextInput = ({
         label={label}
         variant={variant}
         name={name}
-        type={type}
+        select
         {...rest}
         {...register(name, {
           required: true,
-          pattern: {
-            value: pattern.value,
-            message: pattern.message,
-          },
         })}
         error={!!errors?.[name]}
         helperText={errors?.[name]?.message}
-      />
+      >
+        {children}
+      </TextField>
     </FormControl>
   );
 };
 
-export default TextInput;
+export default SelectInput;

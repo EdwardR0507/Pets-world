@@ -17,9 +17,10 @@ const Home = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
           wordBreak: "break-word",
           width: "40%",
+          height: "500px",
         }}
       >
         <Typography variant="h1">Pets World</Typography>
@@ -55,7 +56,7 @@ const Home = () => {
         </Link>
       </Box>
       <Box
-        sx={{ width: "400px", height: "400px", backgroundColor: "green" }}
+        sx={{ width: "450px", height: "450px", backgroundColor: "green" }}
       ></Box>
     </Box>
   );

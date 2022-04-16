@@ -13,7 +13,6 @@ const Login = () => {
   const [response, error, loading, axiosFetch] = useAxiosFunction();
 
   const onSubmit = (data) => {
-    console.log(data);
     axiosFetch({
       axiosInstance: axios,
       method: "post",
@@ -23,8 +22,6 @@ const Login = () => {
       },
     });
   };
-  console.log("response:", response);
-  console.log("error:", error);
 
   return (
     <Box
@@ -36,7 +33,7 @@ const Login = () => {
         height: "calc(100vh - 64px)",
       }}
     >
-      <Typography variant="h1">Iniciar Sesión</Typography>
+      <Typography variant="h2">Iniciar Sesión</Typography>
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{
@@ -53,7 +50,6 @@ const Login = () => {
           label="Usuario"
           name="nombreUsuario"
           register={register}
-          variant="outlined"
           required
           pattern={{
             value: /^[a-zA-Z0-9_-]{4,16}$/,
@@ -66,7 +62,6 @@ const Login = () => {
           label="Contraseña"
           name="password"
           register={register}
-          variant="outlined"
           type="password"
           required
           pattern={{
