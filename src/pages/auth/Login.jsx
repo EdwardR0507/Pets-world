@@ -1,26 +1,20 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../features/user/userSlice";
 import TextInput from "../../ui/TextInput";
-import axios from "../../utils/axios/config";
-import useAxiosFunction from "../../hooks/useAxiosFunction";
+
 const Login = () => {
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [response, error, loading, axiosFetch] = useAxiosFunction();
-
   const onSubmit = (data) => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "post",
-      url: "/auth/logi",
-      requestConfig: {
-        data: JSON.stringify(data),
-      },
-    });
+    dispatch(loginUser(data));
   };
 
   return (
@@ -52,7 +46,7 @@ const Login = () => {
           register={register}
           required
           pattern={{
-            value: /^[a-zA-Z0-9_-]{4,16}$/,
+            value: /^[a-zA-Z0-9._-]{4,16}$/,
             message:
               "El usuario debe tener al menos 4 caracteres y puede contener letras y números",
           }}
@@ -66,7 +60,8 @@ const Login = () => {
           required
           pattern={{
             value:
-              /^(?=.*[A-Z])(?=.*[0-9]{2,})(?=.*[#$%&?]{2,})(?=.*[a-z]).{8,}$/,
+              // /^(?=.*[A-Z])(?=.*[0-9]{2,})(?=.*[#$%&?]{2,})(?=.*[a-z]).{8,}$/,
+              /[0-9]/,
             message:
               "La contraseña debe tener al menos 8 caracteres, 1 letra mayúscula, 2 números y 2 caracteres especiales(#$%&?)",
           }}

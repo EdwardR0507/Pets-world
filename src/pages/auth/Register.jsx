@@ -1,25 +1,20 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import axios from "../../utils/axios/config";
-import useAxiosFunction from "../../hooks/useAxiosFunction";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../features/user/userSlice";
 import TextInput from "../../ui/TextInput";
 const Register = () => {
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.user);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [response, error, loading, axiosFetch] = useAxiosFunction();
 
   const onSubmit = (data) => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "post",
-      url: "/auth/nuevo",
-      requestConfig: {
-        data: JSON.stringify(data),
-      },
-    });
+    dispatch(registerUser(data));
   };
 
   return (
