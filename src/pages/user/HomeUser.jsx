@@ -119,9 +119,11 @@ const HomeUser = () => {
             height: "450px",
           }}
         >
-          <Typography variant="h4">¡Bienvenido Nuevamente Edward!</Typography>
+          <Typography variant="h4">
+            ¡Bienvenido Nuevamente a Pets World!
+          </Typography>
           <Typography variant="body1">
-            Aqui podras ver toda la informacion de tu perfil y mascotas
+            Aquí podrás ver toda la información de tu perfil y mascotas
           </Typography>
           <Divider />
 

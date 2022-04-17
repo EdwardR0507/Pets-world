@@ -5,12 +5,13 @@ axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 const initialState = {
   user: {},
+  pets: [],
   loading: false,
   error: null,
 };
 
 export const getUserByUsername = createAsyncThunk(
-  "/user/data",
+  "user/data",
   async (username) => {
     const { data } = await axios.get("/usuarios/obtener");
     return data.find((user) => user.nombreUsuario === username);

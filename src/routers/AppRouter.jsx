@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Spinner from "../ui/Spinner";
 import NavBar from "../ui/NavBar";
 
@@ -8,6 +8,8 @@ const About = lazy(() => import("../pages/About"));
 const AuthRouter = lazy(() => import("./AuthRouter"));
 const PetRouter = lazy(() => import("./PetRouter"));
 const HomeUser = lazy(() => import("../pages/user/HomeUser"));
+const PublicRouter = lazy(() => import("./PublicRouter"));
+const PrivateRouter = lazy(() => import("./PrivateRouter"));
 
 const AppRouter = () => {
   return (
@@ -15,11 +17,48 @@ const AppRouter = () => {
       <Suspense fallback={<Spinner />}>
         <NavBar />
         <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/auth/*" element={<AuthRouter />} />
-          <Route path="/user/*" element={<PetRouter />} />
-          <Route path="/user/home" element={<HomeUser />} />
+          <Route
+            path="/"
+            index
+            element={
+              <PublicRouter>
+                <Home />
+              </PublicRouter>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PublicRouter>
+                <About />
+              </PublicRouter>
+            }
+          />
+          <Route
+            path="/auth/*"
+            element={
+              <PublicRouter>
+                <AuthRouter />
+              </PublicRouter>
+            }
+          />
+          <Route
+            path="/user/*"
+            element={
+              <PrivateRouter>
+                <PetRouter />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/user/home"
+            element={
+              <PrivateRouter>
+                <HomeUser />
+              </PrivateRouter>
+            }
+          />
+          <Route path="*" element={<Navigate to="/auth/login" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

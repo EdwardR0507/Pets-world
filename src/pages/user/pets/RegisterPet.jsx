@@ -1,9 +1,15 @@
 import { Box, MenuItem, Typography, Button } from "@mui/material";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { registerPet } from "../../../features/pet/petSlice";
 import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
 const RegisterPet = () => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -11,7 +17,29 @@ const RegisterPet = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
+    const date = new Date(data.fechaNacimiento);
+    const fechaNacimiento = date.toLocaleDateString("en-US");
+    const newData = {
+      idDueno: user.id,
+      ...data,
+      fechaNacimiento,
+    };
+    dispatch(registerPet(newData))
+      .then(unwrapResult)
+      .then(
+        Swal.fire({
+          icon: "success",
+          title: "Registro exitoso",
+          text: "El registro se ha realizado con éxito",
+        })
+      )
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error,
+        });
+      });
   };
 
   return (
@@ -97,7 +125,7 @@ const RegisterPet = () => {
           </SelectInput>
           <TextInput
             label="Características"
-            name="caracteristicas"
+            name="caracteristica"
             register={register}
             multiline
             rows={4}

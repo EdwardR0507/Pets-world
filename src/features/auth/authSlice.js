@@ -9,12 +9,12 @@ const initialState = {
   error: null,
 };
 
-export const registerUser = createAsyncThunk("user/register", async (user) => {
+export const registerUser = createAsyncThunk("auth/register", async (user) => {
   const { data } = await axios.post("/auth/nuevo", user);
   return data;
 });
 
-export const loginUser = createAsyncThunk("user/login", async (user) => {
+export const loginUser = createAsyncThunk("auth/login", async (user) => {
   const { data } = await axios.post("/auth/login", user);
   return data;
 });

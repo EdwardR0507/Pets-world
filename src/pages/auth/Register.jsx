@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     dispatch(registerUser(data))
+      .then(unwrapResult)
       .then(() => {
         navigate("/user/home");
       })
