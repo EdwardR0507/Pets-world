@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { registerUser } from "../../features/user/userSlice";
+import { registerUser } from "../../features/auth/authSlice";
 import TextInput from "../../ui/TextInput";
 const Register = () => {
   const dispatch = useDispatch();

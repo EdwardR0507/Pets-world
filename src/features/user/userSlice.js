@@ -9,16 +9,6 @@ const initialState = {
   error: null,
 };
 
-export const registerUser = createAsyncThunk("user/register", async (user) => {
-  const { data } = await axios.post("/auth/nuevo", user);
-  return data;
-});
-
-export const loginUser = createAsyncThunk("user/login", async (user) => {
-  const { data } = await axios.post("/auth/login", user);
-  return data;
-});
-
 export const getUserByUsername = createAsyncThunk(
   "/user/data",
   async (username) => {
@@ -28,40 +18,10 @@ export const getUserByUsername = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // REGISTER
-    builder.addCase(registerUser.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
-      state.user = payload;
-      state.loading = false;
-      state.error = null;
-    });
-    builder.addCase(registerUser.rejected, (state, { error }) => {
-      state.user = {};
-      state.loading = false;
-      state.error = error.message;
-    });
-    // LOGIN
-    builder.addCase(loginUser.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      state.user = payload;
-      state.loading = false;
-      state.error = null;
-    });
-    builder.addCase(loginUser.rejected, (state, { error }) => {
-      state.user = {};
-      state.loading = false;
-      state.error = error.message;
-    });
     // GET USER BY USERNAME
     builder.addCase(getUserByUsername.pending, (state) => {
       state.loading = true;
