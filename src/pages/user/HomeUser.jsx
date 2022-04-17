@@ -7,10 +7,19 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserByUsername } from "../../features/user/userSlice";
 
 const HomeUser = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getUserByUsername(user.nombreUsuario));
+  }, [dispatch, user.nombreUsuario]);
 
   return (
     <Box
@@ -44,8 +53,8 @@ const HomeUser = () => {
             src="https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
             sx={{ width: 56, height: 56 }}
           />
-          <Typography variant="h5">Edward</Typography>
-          <Typography variant="body1"> @edwardRamos </Typography>
+          <Typography variant="h5">{user?.nombre}</Typography>
+          <Typography variant="body1"> @{user?.nombreUsuario} </Typography>
         </Box>
         <Box
           sx={{

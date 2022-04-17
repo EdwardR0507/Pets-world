@@ -9,15 +9,23 @@ const initialState = {
   error: null,
 };
 
-export const registerUser = createAsyncThunk("user/register", async (data) => {
-  const response = await axios.post("/auth/nuevo", data);
-  return response.data;
+export const registerUser = createAsyncThunk("user/register", async (user) => {
+  const { data } = await axios.post("/auth/nuevo", user);
+  return data;
 });
 
-export const loginUser = createAsyncThunk("user/login", async (data) => {
-  const response = await axios.post("/auth/login", data);
-  return response.data;
+export const loginUser = createAsyncThunk("user/login", async (user) => {
+  const { data } = await axios.post("/auth/login", user);
+  return data;
 });
+
+export const getUserByUsername = createAsyncThunk(
+  "/user/data",
+  async (username) => {
+    const { data } = await axios.get("/usuarios/obtener");
+    return data.find((user) => user.nombreUsuario === username);
+  }
+);
 
 const userSlice = createSlice({
   name: "users",
@@ -25,32 +33,49 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // REGISTER
-    builder.addCase(registerUser.pending, (state, action) => {
+    builder.addCase(registerUser.pending, (state) => {
       state.loading = true;
-      state.error = false;
+      state.error = null;
     });
-    builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+      state.user = payload;
       state.loading = false;
-      state.error = false;
+      state.error = null;
     });
-    builder.addCase(registerUser.rejected, (state, action) => {
+    builder.addCase(registerUser.rejected, (state, { error }) => {
+      state.user = {};
       state.loading = false;
-      state.error = true;
+      state.error = error.message;
     });
     // LOGIN
-    builder.addCase(loginUser.pending, (state, action) => {
+    builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
-      state.error = false;
+      state.error = null;
     });
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+      state.user = payload;
       state.loading = false;
-      state.error = false;
+      state.error = null;
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(loginUser.rejected, (state, { error }) => {
+      state.user = {};
       state.loading = false;
-      state.error = true;
+      state.error = error.message;
+    });
+    // GET USER BY USERNAME
+    builder.addCase(getUserByUsername.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getUserByUsername.fulfilled, (state, { payload }) => {
+      state.user = payload;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(getUserByUsername.rejected, (state, { error }) => {
+      state.user = {};
+      state.loading = false;
+      state.error = error.message;
     });
   },
 });

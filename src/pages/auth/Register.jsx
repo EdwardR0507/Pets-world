@@ -1,11 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { registerUser } from "../../features/user/userSlice";
 import TextInput from "../../ui/TextInput";
 const Register = () => {
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.user);
 
   const {
     register,
@@ -14,7 +17,17 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(registerUser(data));
+    dispatch(registerUser(data))
+      .then(() => {
+        navigate("/user/home");
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: err.message,
+        });
+      });
   };
 
   return (
@@ -165,7 +178,6 @@ const Register = () => {
           >
             Registrarse
           </Button>
-          {!loading && error && <p>{error}</p>}
         </form>
         <Box
           sx={{ width: "500px", height: "500px", backgroundColor: "green" }}
