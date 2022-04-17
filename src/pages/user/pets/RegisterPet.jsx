@@ -1,4 +1,4 @@
-import { Box, MenuItem, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
@@ -7,8 +7,14 @@ const RegisterPet = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const otraRaza = watch("raza");
+  const especies = ["perro", "gato"];
+  const tamaños = ["grande", "pequeño", "mediano"];
+  const generos = ["Macho", "Hembra"]
 
   const onSubmit = (data) => {
     console.log(JSON.stringify(data));
@@ -48,29 +54,27 @@ const RegisterPet = () => {
           <SelectInput
             name="especie"
             label="Especie"
+            options={especies}
             register={register}
             fullWidth
             required
             errors={errors}
           >
-            <MenuItem value="perro">Perro</MenuItem>
           </SelectInput>
           <SelectInput
             name="raza"
             label="Raza"
             register={register}
+            filterValue={watch("especie", false)}
+            options={[]}
             select
             fullWidth
             required
             errors={errors}
           >
-            <MenuItem value="doberman">Doberman</MenuItem>
-            <MenuItem value="pitbull">Pitbull</MenuItem>
-            <MenuItem value="labrador">Labrador</MenuItem>
-            <MenuItem value="bulldog">Bulldog</MenuItem>
-            <MenuItem value="pastor">Pastor</MenuItem>
-            <MenuItem value="otro">Otro</MenuItem>
           </SelectInput>
+
+          {otraRaza==="otro" && <div>Otra raza</div>}
 
           <TextInput
             label="Color"
@@ -87,13 +91,11 @@ const RegisterPet = () => {
             name="tamaño"
             label="Tamaño"
             register={register}
+            options={tamaños}
             fullWidth
             required
             errors={errors}
           >
-            <MenuItem value="pequeño">Pequeño</MenuItem>
-            <MenuItem value="mediano">Mediano</MenuItem>
-            <MenuItem value="grande">Grande</MenuItem>
           </SelectInput>
           <TextInput
             label="Características"
@@ -124,12 +126,11 @@ const RegisterPet = () => {
             name="genero"
             label="Género"
             register={register}
+            options={generos}
             fullWidth
             required
             errors={errors}
           >
-            <MenuItem value="Macho">Macho</MenuItem>
-            <MenuItem value="Hembra">Hembra</MenuItem>
           </SelectInput>
           <DateInput
             name="fechaNacimiento"
