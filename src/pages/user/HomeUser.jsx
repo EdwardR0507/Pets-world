@@ -12,7 +12,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swall from "sweetalert2";
-import { registerOwner, verifyOwner } from "../../features/owner/ownerSlice";
+import {
+  getOwnerById,
+  registerOwner,
+  verifyOwner,
+} from "../../features/owner/ownerSlice";
 import { getUserByUsername } from "../../features/user/userSlice";
 
 const HomeUser = () => {
@@ -34,8 +38,12 @@ const HomeUser = () => {
     dispatch(verifyOwner(nombreUsuario));
   }, [dispatch, nombreUsuario]);
 
+  useEffect(() => {
+    isOwner && dispatch(getOwnerById());
+  }, [dispatch, isOwner]);
+
   const handleRegister = () => {
-    if (isOwner === "false") {
+    if (!isOwner) {
       dispatch(
         registerOwner({
           historial_id: 1,

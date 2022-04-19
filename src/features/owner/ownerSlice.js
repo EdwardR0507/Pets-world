@@ -17,7 +17,8 @@ export const verifyOwner = createAsyncThunk(
       const { data } = await axios.post("/usuarios/isDueño", {
         data: username,
       });
-      return data;
+      // Returns the data as string, so I have to parse it to boolean
+      return data.data === "true";
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje);
     }
@@ -62,7 +63,7 @@ const userSlice = createSlice({
       state.error = null;
     });
     builder.addCase(verifyOwner.fulfilled, (state, { payload }) => {
-      state.isOwner = payload.data;
+      state.isOwner = payload;
       state.loading = false;
       state.error = null;
     });

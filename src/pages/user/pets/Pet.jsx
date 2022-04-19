@@ -1,14 +1,14 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Pet = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { pets } = useSelector((state) => state.pet);
 
   const pet = pets.find((pet) => pet.id === Number(id));
-  console.log("pet:", pet);
-  // Return the pet data after fixed the issue with register pet
+
   return (
     <Box
       sx={{
@@ -28,9 +28,11 @@ const Pet = () => {
           height: "200px",
         }}
       >
-        <Typography variant="h2"> Firulais {id}</Typography>
-        <Typography variant="h4">Perro - Labrador</Typography>
-        <Typography variant="h6"> Registrado el 16/04/22 </Typography>
+        <Typography variant="h2"> {pet.nombre}</Typography>
+        <Typography variant="h4">
+          {pet.especie} - {pet.raza || pet.razaEspecifica}
+        </Typography>
+        <Typography variant="h6">Registrado el {pet.fechaRegistro}</Typography>
       </Box>
       <Box
         sx={{
@@ -46,12 +48,15 @@ const Pet = () => {
           <Typography variant="body2">Características:</Typography>
         </Stack>
         <Stack spacing={2}>
-          <Typography variant="body2"> 16/04/22 </Typography>
-          <Typography variant="body2"> Marrón </Typography>
-          <Typography variant="body2"> Grande </Typography>
-          <Typography variant="body2"> Muy activo </Typography>
+          <Typography variant="body2"> {pet.fechaNacimiento} </Typography>
+          <Typography variant="body2"> {pet.color} </Typography>
+          <Typography variant="body2"> {pet.tamaño} </Typography>
+          <Typography variant="body2">{pet.caracteristica} </Typography>
         </Stack>
       </Box>
+      <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+        Volver
+      </Button>
     </Box>
   );
 };

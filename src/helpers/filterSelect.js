@@ -1,11 +1,15 @@
 const razasPorEspecie = [
   {
-    especie: "perro",
-    razas: ["dobberman", "pitbull", "labrador", "bulldog", "otra"],
+    especie: "PERRO",
+    razas: ["SAN BERNARDO", "BEAGLE", "LABRADOR", "OTRA"],
   },
   {
-    especie: "gato",
-    razas: ["siames", "otra"],
+    especie: "GATO",
+    razas: ["PERSA", "SIAMES", "OTRA"],
+  },
+  {
+    especie: "HAMSTERS",
+    razas: ["BLANCO", "OREJAS", "SIBERIANO", "OTRA"],
   },
 ];
 

@@ -24,10 +24,10 @@ const RegisterPet = () => {
   }, [dispatch]);
 
   // Mock data
-  const otraRaza = watch("raza") === "otra";
-  const especies = ["perro", "gato"];
-  const tamaños = ["grande", "pequeño", "mediano"];
-  const generos = ["Macho", "Hembra"];
+  const otraRaza = watch("raza") === "OTRA";
+  const especies = ["PERRO", "GATO", "HAMSTER"];
+  const tamaños = ["GRANDE", "MEDIANO", "PEQUEÑO"];
+  const generos = ["MACHO", "HEMBRA"];
 
   const onSubmit = (data) => {
     const date = new Date(data.fechaNacimiento);

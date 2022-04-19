@@ -19,10 +19,8 @@ export const registerPet = createAsyncThunk(
       ...pet,
       idDueno: id,
     };
-    console.log("dataToSend:", dataToSend);
     try {
       const { data } = await axios.post("/mascotas/registrar", dataToSend);
-      console.log("data pet response:", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje);
@@ -33,14 +31,12 @@ export const registerPet = createAsyncThunk(
 export const getPetsByOwnerId = createAsyncThunk(
   "pet/data",
   async (_, { getState, rejectWithValue }) => {
-    console.log("get pet by owner id");
     const {
       owner: { id },
     } = getState().owner;
     try {
       const { data } = await axios.get("/mascotas/obtener");
-      console.log("data pet response:", data);
-      return data.find((pet) => pet.idDueno === id);
+      return data.filter((pet) => pet.idDueno === id);
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje);
     }

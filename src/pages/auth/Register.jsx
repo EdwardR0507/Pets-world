@@ -21,7 +21,7 @@ const Register = () => {
     dispatch(registerUser(data))
       .then(unwrapResult)
       .then(() => {
-        navigate("/user/home");
+        navigate("/auth/login");
       })
       .catch((err) => {
         Swal.fire({
