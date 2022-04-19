@@ -4,53 +4,84 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 const initialState = {
-  pet: {},
+  pets: [],
   loading: false,
   error: null,
 };
 
 export const registerPet = createAsyncThunk(
   "pet/register",
-  async (pet, thunk) => {
-    const { getState } = thunk;
+  async (pet, { getState, rejectWithValue }) => {
     const {
-      auth: { token },
-    } = getState().auth;
-    console.log(pet);
-    console.log(token);
+      owner: { id },
+    } = getState().owner;
+    const dataToSend = {
+      ...pet,
+      idDueno: id,
+    };
+    console.log("dataToSend:", dataToSend);
     try {
-      const { data } = axios.post("/mascotas/registrar", pet, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.post("/mascotas/registrar", dataToSend);
+      console.log("data pet response:", data);
       return data;
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error.response.data.mensaje);
     }
   }
 );
 
-const userSlice = createSlice({
-  name: "user",
+export const getPetsByOwnerId = createAsyncThunk(
+  "pet/data",
+  async (_, { getState, rejectWithValue }) => {
+    console.log("get pet by owner id");
+    const {
+      owner: { id },
+    } = getState().owner;
+    try {
+      const { data } = await axios.get("/mascotas/obtener");
+      console.log("data pet response:", data);
+      return data.find((pet) => pet.idDueno === id);
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
+
+const petSlice = createSlice({
+  name: "pet",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Register Pet
     builder.addCase(registerPet.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(registerPet.fulfilled, (state, { payload }) => {
-      state.pet = payload;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(registerPet.rejected, (state, { error }) => {
-      state.pet = {};
+      state.loading = false;
+      state.error = error.message;
+    });
+
+    // Get Pets By Owner Id
+    builder.addCase(getPetsByOwnerId.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getPetsByOwnerId.fulfilled, (state, { payload }) => {
+      state.pets = payload;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(getPetsByOwnerId.rejected, (state, { error }) => {
+      state.pets = [];
       state.loading = false;
       state.error = error.message;
     });
   },
 });
 
-export default userSlice.reducer;
+export default petSlice.reducer;

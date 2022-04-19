@@ -5,16 +5,19 @@ axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 const initialState = {
   user: {},
-  pets: [],
   loading: false,
   error: null,
 };
 
 export const getUserByUsername = createAsyncThunk(
   "user/data",
-  async (username) => {
-    const { data } = await axios.get("/usuarios/obtener");
-    return data.find((user) => user.nombreUsuario === username);
+  async (username, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get("/usuarios/obtener");
+      return data.find((user) => user.nombreUsuario === username);
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
   }
 );
 
@@ -33,10 +36,10 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = null;
     });
-    builder.addCase(getUserByUsername.rejected, (state, { error }) => {
+    builder.addCase(getUserByUsername.rejected, (state, { payload }) => {
       state.user = {};
       state.loading = false;
-      state.error = error.message;
+      state.error = payload;
     });
   },
 });

@@ -1,9 +1,14 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const Pet = () => {
   const { id } = useParams();
+  const { pets } = useSelector((state) => state.pet);
 
+  const pet = pets.find((pet) => pet.id === Number(id));
+  console.log("pet:", pet);
+  // Return the pet data after fixed the issue with register pet
   return (
     <Box
       sx={{

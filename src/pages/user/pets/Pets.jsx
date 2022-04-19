@@ -10,9 +10,22 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getPetsByOwnerId } from "../../../features/pet/petSlice";
+
 const Pets = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { pets } = useSelector((state) => state.pet);
+  console.log("page pets:", pets);
+
+  useEffect(() => {
+    dispatch(getPetsByOwnerId());
+  }, [dispatch]);
+
   return (
     <Box
       sx={{
@@ -38,7 +51,7 @@ const Pets = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pets.map((pet) => (
+            {mockPets.map((pet) => (
               <TableRow
                 key={pet.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -64,7 +77,8 @@ const Pets = () => {
     </Box>
   );
 };
-const pets = [
+// Delete this after fixed the issue with register pet
+const mockPets = [
   {
     id: 1,
     nombre: "Beret",

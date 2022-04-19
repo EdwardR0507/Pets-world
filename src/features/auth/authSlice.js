@@ -9,15 +9,29 @@ const initialState = {
   error: null,
 };
 
-export const registerUser = createAsyncThunk("auth/register", async (user) => {
-  const { data } = await axios.post("/auth/nuevo", user);
-  return data;
-});
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/auth/nuevo", user);
+      return data;
+    } catch (error) {
+      rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
 
-export const loginUser = createAsyncThunk("auth/login", async (user) => {
-  const { data } = await axios.post("/auth/login", user);
-  return data;
-});
+export const loginUser = createAsyncThunk(
+  "auth/login",
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/auth/login", user);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -34,10 +48,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
     });
-    builder.addCase(registerUser.rejected, (state, { error }) => {
+    builder.addCase(registerUser.rejected, (state, { payload }) => {
       state.auth = {};
       state.loading = false;
-      state.error = error.message;
+      state.error = payload;
     });
     // LOGIN
     builder.addCase(loginUser.pending, (state) => {
@@ -49,10 +63,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
     });
-    builder.addCase(loginUser.rejected, (state, { error }) => {
+    builder.addCase(loginUser.rejected, (state, { payload }) => {
       state.auth = {};
       state.loading = false;
-      state.error = error.message;
+      state.error = payload;
     });
   },
 });

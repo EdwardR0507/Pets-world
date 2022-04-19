@@ -17,7 +17,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     dispatch(loginUser(data))
       .then(unwrapResult)
       .then(() => {
@@ -27,7 +27,7 @@ const Login = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: err.message,
+          text: err,
         });
       });
   };

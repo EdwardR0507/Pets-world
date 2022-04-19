@@ -1,14 +1,16 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { registerPet } from "../../../features/pet/petSlice";
 import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
+import { useEffect } from "react";
+import { getOwnerById } from "../../../features/owner/ownerSlice";
+
 const RegisterPet = () => {
-  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const {
     register,
@@ -17,28 +19,35 @@ const RegisterPet = () => {
     formState: { errors },
   } = useForm();
 
-  const otraRaza = watch("raza");
+  useEffect(() => {
+    dispatch(getOwnerById());
+  }, [dispatch]);
+
+  // Mock data
+  const otraRaza = watch("raza") === "otra";
   const especies = ["perro", "gato"];
   const tamaños = ["grande", "pequeño", "mediano"];
-  const generos = ["Macho", "Hembra"]
+  const generos = ["Macho", "Hembra"];
 
   const onSubmit = (data) => {
     const date = new Date(data.fechaNacimiento);
     const fechaNacimiento = date.toLocaleDateString("en-US");
+    otraRaza && delete data.raza;
     const newData = {
-      idDueno: user.id,
       ...data,
       fechaNacimiento,
     };
     dispatch(registerPet(newData))
       .then(unwrapResult)
-      .then(
-        Swal.fire({
-          icon: "success",
-          title: "Registro exitoso",
-          text: "El registro se ha realizado con éxito",
-        })
-      )
+      .then((res) => {
+        if (res) {
+          Swal.fire({
+            icon: "success",
+            title: "Mascota registrada",
+            text: "La mascota ha sido registrada correctamente",
+          });
+        }
+      })
       .catch((error) => {
         Swal.fire({
           icon: "error",
@@ -87,8 +96,7 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          >
-          </SelectInput>
+          ></SelectInput>
           <SelectInput
             name="raza"
             label="Raza"
@@ -98,11 +106,23 @@ const RegisterPet = () => {
             select
             fullWidth
             required
+            disabled={otraRaza}
             errors={errors}
-          >
-          </SelectInput>
+          ></SelectInput>
 
-          {otraRaza==="otro" && <div>Otra raza</div>}
+          {otraRaza && (
+            <TextInput
+              label="Ingrese la Raza"
+              name="razaEspecifica"
+              register={register}
+              required
+              pattern={{
+                value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+                message: "Solo se permiten letras, espacios y acentos",
+              }}
+              errors={errors}
+            />
+          )}
 
           <TextInput
             label="Color"
@@ -123,8 +143,7 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          >
-          </SelectInput>
+          ></SelectInput>
           <TextInput
             label="Características"
             name="caracteristica"
@@ -158,8 +177,7 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          >
-          </SelectInput>
+          ></SelectInput>
           <DateInput
             name="fechaNacimiento"
             register={register}

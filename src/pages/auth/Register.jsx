@@ -27,7 +27,7 @@ const Register = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: err.message,
+          text: err,
         });
       });
   };
@@ -64,7 +64,7 @@ const Register = () => {
           }}
         >
           <TextInput
-            label="Nombre"
+            label="Nombres"
             name="nombre"
             register={register}
             required

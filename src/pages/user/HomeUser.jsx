@@ -7,9 +7,12 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import Swall from "sweetalert2";
+import { registerOwner, verifyOwner } from "../../features/owner/ownerSlice";
 import { getUserByUsername } from "../../features/user/userSlice";
 
 const HomeUser = () => {
@@ -21,9 +24,39 @@ const HomeUser = () => {
 
   const { user } = useSelector((state) => state.user);
 
+  const { isOwner } = useSelector((state) => state.owner);
+
   useEffect(() => {
     dispatch(getUserByUsername(nombreUsuario));
   }, [dispatch, nombreUsuario]);
+
+  useEffect(() => {
+    dispatch(verifyOwner(nombreUsuario));
+  }, [dispatch, nombreUsuario]);
+
+  const handleRegister = () => {
+    if (isOwner === "false") {
+      dispatch(
+        registerOwner({
+          historial_id: 1,
+          numero_mascotas: 0,
+          rate: 0,
+          usuario_id: user.id,
+        })
+      )
+        .then(unwrapResult)
+        .then(() => navigate("/user/register-pet"))
+        .catch((error) => {
+          Swall.fire({
+            icon: "error",
+            title: "Error",
+            text: error,
+          });
+        });
+    } else {
+      navigate("/user/register-pet");
+    }
+  };
 
   return (
     user && (
@@ -143,7 +176,7 @@ const HomeUser = () => {
               borderRadius: "0.5rem",
               border: "none",
             }}
-            onClick={() => navigate("/user/register-pet")}
+            onClick={handleRegister}
           >
             Ir
           </Button>
