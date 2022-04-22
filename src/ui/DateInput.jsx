@@ -1,13 +1,12 @@
 import { FormControl, TextField } from "@mui/material";
 
-const DateInput = ({ name, label, register, errors }) => {
+const DateInput = ({ name = "date", label, register, errors, ...rest }) => {
   return (
     <FormControl sx={{ width: "20rem", margin: "5px 0" }}>
       <TextField
         name={name}
         label={label}
         type="date"
-        // sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,
         }}
@@ -17,6 +16,7 @@ const DateInput = ({ name, label, register, errors }) => {
         })}
         error={!!errors?.[name]}
         helperText={errors?.[name]?.message}
+        {...rest}
       />
     </FormControl>
   );

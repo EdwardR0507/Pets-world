@@ -4,10 +4,12 @@ import Spinner from "../ui/Spinner";
 import NavBar from "../ui/NavBar";
 
 const Home = lazy(() => import("../pages/Home"));
-const About = lazy(() => import("../pages/About"));
+
 const AuthRouter = lazy(() => import("./AuthRouter"));
-const PetRouter = lazy(() => import("./PetRouter"));
 const HomeUser = lazy(() => import("../pages/user/HomeUser"));
+const PetRouter = lazy(() => import("./PetRouter"));
+const LossRouter = lazy(() => import("./LossRouter"));
+
 const PublicRouter = lazy(() => import("./PublicRouter"));
 const PrivateRouter = lazy(() => import("./PrivateRouter"));
 
@@ -27,14 +29,6 @@ const AppRouter = () => {
             }
           />
           <Route
-            path="/about"
-            element={
-              <PublicRouter>
-                <About />
-              </PublicRouter>
-            }
-          />
-          <Route
             path="/auth/*"
             element={
               <PublicRouter>
@@ -42,14 +36,7 @@ const AppRouter = () => {
               </PublicRouter>
             }
           />
-          <Route
-            path="/user/*"
-            element={
-              <PrivateRouter>
-                <PetRouter />
-              </PrivateRouter>
-            }
-          />
+
           <Route
             path="/user/home"
             element={
@@ -58,6 +45,25 @@ const AppRouter = () => {
               </PrivateRouter>
             }
           />
+
+          <Route
+            path="/user/*"
+            element={
+              <PrivateRouter>
+                <PetRouter />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/loss/*"
+            element={
+              <PrivateRouter>
+                <LossRouter />
+              </PrivateRouter>
+            }
+          />
+
           <Route path="*" element={<Navigate to="/auth/login" />} />
         </Routes>
       </Suspense>

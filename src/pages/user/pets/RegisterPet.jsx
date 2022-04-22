@@ -1,7 +1,7 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { registerPet } from "../../../features/pet/petSlice";
 import DateInput from "../../../ui/DateInput";
@@ -9,9 +9,11 @@ import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
 import { useEffect } from "react";
 import { getOwnerById } from "../../../features/owner/ownerSlice";
+import { convertDate } from "../../../helpers/convertDate";
 
 const RegisterPet = () => {
   const dispatch = useDispatch();
+  const { owner } = useSelector((state) => state.owner);
   const {
     register,
     handleSubmit,
@@ -20,19 +22,57 @@ const RegisterPet = () => {
   } = useForm();
 
   useEffect(() => {
-    dispatch(getOwnerById());
+    if (Object.keys(owner).length === 0) {
+      dispatch(getOwnerById());
+    }
   }, [dispatch]);
 
   // Mock data
-  const otraRaza = watch("raza") === "OTRA";
-  const especies = ["PERRO", "GATO", "HAMSTER"];
-  const tamaños = ["GRANDE", "MEDIANO", "PEQUEÑO"];
-  const generos = ["MACHO", "HEMBRA"];
+  const otherRace = watch("raza") === "OTRA";
+  const especies = [
+    {
+      value: "PERRO",
+      label: "Perro",
+    },
+    {
+      value: "GATO",
+      label: "Gato",
+    },
+    {
+      value: "HAMSTER",
+      label: "Hamster",
+    },
+  ];
+
+  const tamaños = [
+    {
+      value: "PEQUEÑO",
+      label: "Pequeño",
+    },
+    {
+      value: "MEDIANO",
+      label: "Mediano",
+    },
+    {
+      value: "GRANDE",
+      label: "Grande",
+    },
+  ];
+
+  const generos = [
+    {
+      value: "MACHO",
+      label: "Macho",
+    },
+    {
+      value: "HEMBRA",
+      label: "Hembra",
+    },
+  ];
 
   const onSubmit = (data) => {
-    const date = new Date(data.fechaNacimiento);
-    const fechaNacimiento = date.toLocaleDateString("en-US");
-    otraRaza && delete data.raza;
+    const fechaNacimiento = convertDate(data);
+    otherRace && delete data.raza;
     const newData = {
       ...data,
       fechaNacimiento,
@@ -96,7 +136,7 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          ></SelectInput>
+          />
           <SelectInput
             name="raza"
             label="Raza"
@@ -106,11 +146,11 @@ const RegisterPet = () => {
             select
             fullWidth
             required
-            disabled={otraRaza}
+            disabled={otherRace}
             errors={errors}
-          ></SelectInput>
+          />
 
-          {otraRaza && (
+          {otherRace && (
             <TextInput
               label="Ingrese la Raza"
               name="razaEspecifica"
@@ -143,7 +183,7 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          ></SelectInput>
+          />
           <TextInput
             label="Características"
             name="caracteristica"
@@ -177,12 +217,8 @@ const RegisterPet = () => {
             fullWidth
             required
             errors={errors}
-          ></SelectInput>
-          <DateInput
-            name="fechaNacimiento"
-            register={register}
-            label="Fecha de Nacimiento"
           />
+          <DateInput register={register} label="Fecha de Nacimiento" />
 
           <Button
             variant="contained"

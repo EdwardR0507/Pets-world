@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormControl, TextField } from "@mui/material";
 import { MenuItem } from "@mui/material";
-import  filtrarRazas  from "../helpers/filterSelect"
+import filterRaces from "../helpers/filterSelect";
 
 const SelectInput = ({
   label,
@@ -14,11 +14,12 @@ const SelectInput = ({
   ...rest
 }) => {
   const [optionsState, setOptionsState] = useState(options);
-  useEffect(()=>{
-    if(filterValue){
-      setOptionsState(filtrarRazas(filterValue));
+
+  useEffect(() => {
+    if (filterValue) {
+      setOptionsState(filterRaces(filterValue));
     }
-  },[options])
+  }, [options, filterValue]);
 
   return (
     <FormControl sx={{ width: "20rem", margin: "5px 0" }}>
@@ -29,17 +30,17 @@ const SelectInput = ({
         select
         {...rest}
         {...register(name, {
-          required: true
+          required: true,
         })}
-        defaultValue=''
+        defaultValue=""
         error={!!errors?.[name]}
         helperText={errors?.[name]?.message}
       >
-        {optionsState.map((option, i)=>
-          <MenuItem key={i} value={option}>
-            {option}
+        {optionsState.map(({ value, label }) => (
+          <MenuItem key={value} value={value}>
+            {label}
           </MenuItem>
-        )}
+        ))}
       </TextField>
     </FormControl>
   );

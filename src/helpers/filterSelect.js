@@ -1,4 +1,4 @@
-const razasPorEspecie = [
+const raceBySpecies = [
   {
     especie: "PERRO",
     razas: ["SAN BERNARDO", "BEAGLE", "LABRADOR", "OTRA"],
@@ -13,8 +13,14 @@ const razasPorEspecie = [
   },
 ];
 
-const filtrarRazas = (especie) => {
-  return razasPorEspecie.find((el) => el.especie === especie).razas;
+const filterRaces = (especie) => {
+  const races = raceBySpecies.find((el) => el.especie === especie).razas;
+  return races.map((race) => {
+    return {
+      value: race,
+      label: race,
+    };
+  });
 };
 
-export default filtrarRazas;
+export default filterRaces;

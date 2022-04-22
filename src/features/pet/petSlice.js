@@ -53,7 +53,7 @@ const petSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerPet.fulfilled, (state, { payload }) => {
+    builder.addCase(registerPet.fulfilled, (state) => {
       state.loading = false;
       state.error = null;
     });

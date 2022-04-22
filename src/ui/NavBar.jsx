@@ -1,34 +1,22 @@
-import {
-  AppBar,
-  IconButton,
-  Typography,
-  Toolbar,
-  Stack,
-  Button,
-} from "@mui/material";
+import { AppBar, IconButton, Toolbar, Stack, Button } from "@mui/material";
 
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <IconButton size="large" edge="start" color="inherit" aria-label="logo">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             LOGO
           </Link>
         </IconButton>
-        <Typography component="div" sx={{ flexGrow: 1 }}>
-          <Button color="inherit">
-            <Link
-              to="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              ¿Quienes somos?
-            </Link>
-          </Button>
-        </Typography>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={8}>
           <Button color="inherit">
             <Link
               to="/auth/register"

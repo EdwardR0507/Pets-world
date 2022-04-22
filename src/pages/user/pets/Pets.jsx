@@ -1,14 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PetsTable from "../../../components/PetsTable";
 import { getPetsByOwnerId } from "../../../features/pet/petSlice";
 
 const Pets = () => {
   const dispatch = useDispatch();
-
+  const { pets } = useSelector((state) => state.pet);
   useEffect(() => {
-    dispatch(getPetsByOwnerId());
+    if (pets.length === 0) {
+      dispatch(getPetsByOwnerId());
+    }
   }, [dispatch]);
 
   return (

@@ -78,7 +78,7 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerOwner.fulfilled, (state, { payload }) => {
+    builder.addCase(registerOwner.fulfilled, (state) => {
       state.loading = false;
       state.error = null;
     });

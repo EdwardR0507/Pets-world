@@ -5,6 +5,7 @@ import {
   Divider,
   List,
   ListItem,
+  Stack,
   Typography,
 } from "@mui/material";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -12,6 +13,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swall from "sweetalert2";
+import DashboardSection from "../../components/DashboardSection";
 import {
   getOwnerById,
   registerOwner,
@@ -43,7 +45,9 @@ const HomeUser = () => {
   }, [dispatch, isOwner]);
 
   const handleRegister = () => {
-    if (!isOwner) {
+    if (isOwner) {
+      navigate("/user/register-pet");
+    } else {
       dispatch(
         registerOwner({
           historial_id: 1,
@@ -61,8 +65,34 @@ const HomeUser = () => {
             text: error,
           });
         });
+    }
+  };
+
+  const handleMyPets = () => {
+    if (isOwner) {
+      navigate("/user/pets");
     } else {
-      navigate("/user/register-pet");
+      Swall.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe registrar una mascota",
+      });
+    }
+  };
+
+  const handleMyShelters = () => {
+    navigate("/user/pets");
+  };
+
+  const handleMyLosts = () => {
+    if (isOwner) {
+      navigate("/loss/register");
+    } else {
+      Swall.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe registrar una mascota",
+      });
     }
   };
 
@@ -78,7 +108,7 @@ const HomeUser = () => {
       >
         <Box
           sx={{
-            height: "300px",
+            height: "400px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-around",
@@ -109,7 +139,7 @@ const HomeUser = () => {
               alignItems: "center",
               justifyContent: "space-around",
               marginTop: "1rem",
-              height: "150px",
+              height: "200px",
             }}
           >
             <Typography variant="body1">
@@ -150,6 +180,18 @@ const HomeUser = () => {
               </ListItem>
             </List>
           </Box>
+          <Stack spacing={2}>
+            <Button variant="contained" color="primary" onClick={handleMyLosts}>
+              Registrar pérdida
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/loss/search")}
+            >
+              Buscar mascotas perdidas
+            </Button>
+          </Stack>
         </Box>
         <Box
           sx={{
@@ -157,7 +199,7 @@ const HomeUser = () => {
             flexDirection: "column",
             justifyContent: "space-around",
             width: "700px",
-            height: "450px",
+            height: "500px",
           }}
         >
           <Typography variant="h4">
@@ -168,48 +210,28 @@ const HomeUser = () => {
           </Typography>
           <Divider />
 
-          <Typography variant="h5">Registrar Mascota</Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-            at iusto placeat quisquam, commodi quidem asperiores, delectus
-            veritatis excepturi, corrupti voluptas est expedita voluptatibus
-            magnam quibusdam! Quam, fugit? Aspernatur, veritatis!
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: "5rem",
-              margin: "1rem 0",
-              borderRadius: "0.5rem",
-              border: "none",
-            }}
-            onClick={handleRegister}
-          >
-            Ir
-          </Button>
+          <DashboardSection
+            title="Registrar Mascota"
+            description="Podrás registrar una nueva mascota en la plataforma haciendo click en el botón IR."
+            handleClick={handleRegister}
+          />
           <Divider />
 
-          <Typography variant="h5">Ver Tus Mascotas</Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ab
-            reiciendis, ratione ut repellat odio illum natus corporis maiores
-            quae nostrum sit eveniet nisi id minima, molestiae quod corrupti
-            dolor.
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: "5rem",
-              margin: "1rem 0",
-              borderRadius: "0.5rem",
-              border: "none",
-            }}
-            onClick={() => navigate("/user/pets")}
-          >
-            Ir
-          </Button>
+          <DashboardSection
+            title={"Ver Tus Mascotas"}
+            description={
+              "Podrás ver todas las mascotas registradas en la plataforma haciendo click en el botón IR (no olvidar que debes tener almenos 1 mascota registrada)."
+            }
+            handleClick={handleMyPets}
+          />
+
+          <Divider />
+
+          <DashboardSection
+            title="Ver Refugios"
+            description="Podrás ver todos los refugios registrados en la plataforma haciendo click en el botón IR."
+            handleClick={handleMyShelters}
+          />
         </Box>
       </Box>
     )
