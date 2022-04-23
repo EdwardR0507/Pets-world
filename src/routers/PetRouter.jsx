@@ -8,7 +8,7 @@ const Pet = lazy(() => import("../pages/user/pets/Pet"));
 const PetRouter = () => {
   return (
     <Routes>
-      <Route path="register-pet" element={<RegisterPet />} />
+      <Route path="pets/register" element={<RegisterPet />} />
       <Route path="pets" element={<Pets />} />
       <Route path="pets/:id" element={<Pet />} />
     </Routes>

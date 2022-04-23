@@ -5,6 +5,8 @@ axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 const initialState = {
   losses: [],
+  loading: false,
+  error: null,
 };
 
 export const registerLoss = createAsyncThunk(

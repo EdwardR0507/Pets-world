@@ -46,7 +46,7 @@ const HomeUser = () => {
 
   const handleRegister = () => {
     if (isOwner) {
-      navigate("/user/register-pet");
+      navigate("/user/pets/register");
     } else {
       dispatch(
         registerOwner({
@@ -57,7 +57,7 @@ const HomeUser = () => {
         })
       )
         .then(unwrapResult)
-        .then(() => navigate("/user/register-pet"))
+        .then(() => navigate("/user/pets/register"))
         .catch((error) => {
           Swall.fire({
             icon: "error",
@@ -190,6 +190,13 @@ const HomeUser = () => {
               onClick={() => navigate("/loss/search")}
             >
               Buscar mascotas perdidas
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/user/shelters")}
+            >
+              Shelters
             </Button>
           </Stack>
         </Box>

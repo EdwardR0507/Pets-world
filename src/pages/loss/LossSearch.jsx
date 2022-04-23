@@ -34,7 +34,7 @@ const LossSearch = () => {
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: "145vh",
+        height: "120vh",
       }}
     >
       <Typography variant="h2">Pérdidas</Typography>
