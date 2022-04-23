@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PetsTable from "../../../components/PetsTable";
-import { getPetsByOwnerId } from "../../../features/pet/petSlice";
+import { getPetsByOwnerId } from "../../../features/pet/petActions";
 
 const Pets = () => {
   const dispatch = useDispatch();

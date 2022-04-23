@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { loginUser } from "../../features/auth/authSlice";
+import { loginUser } from "../../features/auth/authActions";
 import TextInput from "../../ui/TextInput";
 
 const Login = () => {

@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { registerPet } from "../../../features/pet/petSlice";
 import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
-import { useEffect } from "react";
-import { getOwnerById } from "../../../features/owner/ownerSlice";
+import { getOwnerById } from "../../../features/owner/ownerActions";
+import { registerPet } from "../../../features/pet/petActions";
 import { convertDate } from "../../../helpers/convertDate";
 
 const RegisterPet = () => {

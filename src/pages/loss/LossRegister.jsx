@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 
 import TextInput from "../../ui/TextInput";
 import SelectInput from "../../ui/SelectInput";
-import { registerLoss } from "../../features/loss/lossSlice";
+import { registerLoss } from "../../features/loss/lossActions";
 import DateInput from "../../ui/DateInput";
 import { convertDate } from "../../helpers/convertDate";
-import { getPetsByOwnerId } from "../../features/pet/petSlice";
+import { getPetsByOwnerId } from "../../features/pet/petActions";
 import { useEffect } from "react";
 
 const LossRegister = () => {

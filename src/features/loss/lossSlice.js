@@ -1,37 +1,11 @@
-import axios from "axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+import { createSlice } from "@reduxjs/toolkit";
+import { getAllLosses, registerLoss } from "./lossActions";
 
 const initialState = {
   losses: [],
   loading: false,
   error: null,
 };
-
-export const registerLoss = createAsyncThunk(
-  "loss/register",
-  async (newLoss, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post("/busquedas/registrar", newLoss);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data.mensaje);
-    }
-  }
-);
-
-export const getAllLosses = createAsyncThunk(
-  "loss/getAll",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get("/busquedas/obtener");
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data.mensaje);
-    }
-  }
-);
 
 const lossSlice = createSlice({
   name: "loss",

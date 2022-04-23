@@ -18,8 +18,8 @@ import {
   getOwnerById,
   registerOwner,
   verifyOwner,
-} from "../../features/owner/ownerSlice";
-import { getUserByUsername } from "../../features/user/userSlice";
+} from "../../features/owner/ownerActions";
+import { getUserByUsername } from "../../features/user/userActions";
 
 const HomeUser = () => {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const HomeUser = () => {
   };
 
   const handleMyShelters = () => {
-    navigate("/user/pets");
+    navigate("/user/shelters");
   };
 
   const handleMyLosts = () => {
@@ -132,7 +132,7 @@ const HomeUser = () => {
             <Typography variant="h5">{user?.nombres}</Typography>
             <Typography variant="body1"> @{user?.nombreUsuario} </Typography>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -179,7 +179,7 @@ const HomeUser = () => {
                 </Link>
               </ListItem>
             </List>
-          </Box>
+          </Box> */}
           <Stack spacing={2}>
             <Button variant="contained" color="primary" onClick={handleMyLosts}>
               Registrar pérdida
@@ -190,13 +190,6 @@ const HomeUser = () => {
               onClick={() => navigate("/loss/search")}
             >
               Buscar mascotas perdidas
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate("/user/shelters")}
-            >
-              Shelters
             </Button>
           </Stack>
         </Box>
