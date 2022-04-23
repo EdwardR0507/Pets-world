@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import TextInput from "../../ui/TextInput";
@@ -15,7 +14,6 @@ import { useEffect } from "react";
 
 const LossRegister = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { loading } = useSelector((state) => state.user);
   const { pets } = useSelector((state) => state.pet);
 
@@ -40,7 +38,7 @@ const LossRegister = () => {
     };
     dispatch(registerLoss(newData))
       .then(unwrapResult)
-      .then(() => {
+      .then((res) => {
         Swal.fire({
           icon: "success",
           title: "¡Registro exitoso!",
@@ -156,7 +154,7 @@ const LossRegister = () => {
               fullWidth
               required
               pattern={{
-                value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+                value: /^[a-zA-ZÀ-ÿ\d\s.,]{1,500}$/,
                 message: "Solo se permiten letras, espacios y acentos",
               }}
               errors={errors}
@@ -173,7 +171,7 @@ const LossRegister = () => {
                 border: "none",
               }}
             >
-              Registrarse
+              Registrar Pérdida
             </Button>
           </form>
           <Box
