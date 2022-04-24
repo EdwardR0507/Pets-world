@@ -22,7 +22,7 @@ const LossRegister = () => {
 
   const petsArray = pets.map((pet) => {
     return {
-      label: `${pet.nombre} - ${pet.raza}`,
+      label: `${pet.nombre} - ${pet.raza || pet.razaEspecifica}`,
       value: pet.id,
     };
   });

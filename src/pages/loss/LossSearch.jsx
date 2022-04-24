@@ -34,12 +34,17 @@ const LossSearch = () => {
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
+        marginTop: "10px",
+        height: `${filteredLosses.length > 0 ? "100%" : "calc(70vh - 64px)"}`,
       }}
     >
       <Typography variant="h2">Pérdidas</Typography>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
+        sx={{
+          margin: "20px auto",
+        }}
       >
         <FormControl sx={{ width: "20rem" }}>
           <TextField
