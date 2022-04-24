@@ -1,11 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getUserByUsername } from "./userActions";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "../../helpers/axiosConfig";
 
 const initialState = {
   user: {},
   loading: false,
   error: null,
 };
+
+export const getUserByUsername = createAsyncThunk(
+  "user/data",
+  async (username, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get("/usuarios/obtener");
+      return data.find((user) => user.nombreUsuario === username);
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "user",

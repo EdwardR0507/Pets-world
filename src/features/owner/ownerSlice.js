@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getOwnerById, registerOwner, verifyOwner } from "./ownerActions";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "../../helpers/axiosConfig";
 
 const initialState = {
   isOwner: false,
@@ -7,6 +7,48 @@ const initialState = {
   loading: false,
   error: null,
 };
+
+export const verifyOwner = createAsyncThunk(
+  "owner/isOwner",
+  async (username, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/usuarios/isDueño", {
+        data: username,
+      });
+      // Returns the data as string, so I have to parse it to boolean
+      return data.data === "true";
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
+
+export const registerOwner = createAsyncThunk(
+  "owner/registerOwner",
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/dueños/registrar", user);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
+
+export const getOwnerById = createAsyncThunk(
+  "owner/data",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const {
+        user: { id },
+      } = getState().user;
+      const { data } = await axios.get("/dueños/obtener");
+      return data.find((owner) => owner.usuario_id === id);
+    } catch (error) {
+      return rejectWithValue(error.response.data.mensaje);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "user",

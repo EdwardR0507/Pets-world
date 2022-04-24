@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllLosses } from "../../features/loss/lossActions";
+import { getAllLosses } from "../../features/loss/lossSlice";
 import LossCard from "../../components/LossCard";
 
 const LossSearch = () => {

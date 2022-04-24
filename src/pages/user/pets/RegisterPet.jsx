@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
-import { getOwnerById } from "../../../features/owner/ownerActions";
-import { registerPet } from "../../../features/pet/petActions";
+import { getOwnerById } from "../../../features/owner/ownerSlice";
+import { registerPet } from "../../../features/pet/petSlice";
 import { convertDate } from "../../../helpers/convertDate";
 
 const RegisterPet = () => {

@@ -18,8 +18,8 @@ import {
   getOwnerById,
   registerOwner,
   verifyOwner,
-} from "../../features/owner/ownerActions";
-import { getUserByUsername } from "../../features/user/userActions";
+} from "../../features/owner/ownerSlice";
+import { getUserByUsername } from "../../features/user/userSlice";
 
 const HomeUser = () => {
   const dispatch = useDispatch();
