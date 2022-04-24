@@ -205,23 +205,19 @@ const HomeUser = () => {
           <Typography variant="h4">
             ¡Bienvenido Nuevamente a Pets World!
           </Typography>
-          <Typography variant="body1">
-            Aquí podrás ver toda la información de tu perfil y mascotas
-          </Typography>
+          <Typography variant="body1">Aquí podrás...</Typography>
           <Divider />
 
           <DashboardSection
             title="Registrar Mascota"
-            description="Podrás registrar una nueva mascota en la plataforma haciendo click en el botón IR."
+            description="Registra tus mascotas para poder solicitar ayuda en caso pérdida."
             handleClick={handleRegister}
           />
           <Divider />
 
           <DashboardSection
             title={"Ver Tus Mascotas"}
-            description={
-              "Podrás ver todas las mascotas registradas en la plataforma haciendo click en el botón IR (no olvidar que debes tener almenos 1 mascota registrada)."
-            }
+            description="Realiza un seguimiento a tus mascotas registradas."
             handleClick={handleMyPets}
           />
 
@@ -229,7 +225,7 @@ const HomeUser = () => {
 
           <DashboardSection
             title="Ver Refugios"
-            description="Podrás ver todos los refugios registrados en la plataforma haciendo click en el botón IR."
+            description="En caso encuentres animales sin hogar o necesites que cuiden a tu mascota, puedes contactar con un refugio. Si deseas abrir uno, puedes registrarlo."
             handleClick={handleMyShelters}
           />
         </Box>

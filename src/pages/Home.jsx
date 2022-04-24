@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import petsImage from "../assets/images/pets.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,7 +10,14 @@ const Home = () => {
         display: "flex",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: "calc(100vh - 64px)",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        height: {
+          xs: "100%",
+          md: "calc(100vh - 64px)",
+        },
       }}
     >
       <Box
@@ -19,22 +27,31 @@ const Home = () => {
           alignItems: "center",
           justifyContent: "space-evenly",
           wordBreak: "break-word",
-          width: "40%",
+          width: {
+            xs: "100%",
+            md: "40%",
+          },
           height: "500px",
         }}
       >
-        <Typography variant="h1">Pets World</Typography>
-        <Typography variant="p">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est
-          voluptatem consectetur, illo ullam doloremque ducimus vero officia
-          laudantium sunt harum soluta quidem tenetur eius assumenda veritatis
-          rem qui cum incidunt. Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Est voluptatem consectetur, illo ullam doloremque
-          ducimus vero officia laudantium sunt harum soluta quidem tenetur eius
-          assumenda veritatis rem qui cum incidunt. rem qui cum incidunt. Lorem
-          ipsum dolor sit, amet consectetur adipisicing elit. Est voluptatem
-          consectetur, illo ullam doloremque ducimus vero officia laudantium
-          sunt harum soluta quidem tenetur eius assumenda veritatis rem qui cum
+        <Typography variant="h1" align="center">
+          Pets World
+        </Typography>
+        <Typography
+          variant="p"
+          sx={{
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
+          align={window.innerWidth > 600 ? "center" : "left"}
+        >
+          La mejor comunidad para cuidar a tus mascotas y todos los animalitos
+          sin hogar. Buscamos formar una comunidad responsable y comprometida
+          para así hacer escuchar a los que no tienen voz además perseguimos el
+          objetivo de disminuir la tasa de mascotas perdidas y abandonadas en
+          nuestro país.
         </Typography>
         <Button
           variant="contained"
@@ -56,8 +73,29 @@ const Home = () => {
         </Link>
       </Box>
       <Box
-        sx={{ width: "450px", height: "450px", backgroundColor: "green" }}
-      ></Box>
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          width: {
+            xs: "100%",
+            md: "40%",
+          },
+          height: {
+            xs: "100%",
+            md: "500px",
+          },
+        }}
+      >
+        <img
+          src={petsImage}
+          alt="pets"
+          style={{
+            maxWidth: "100%",
+          }}
+        />
+      </Box>
     </Box>
   );
 };
