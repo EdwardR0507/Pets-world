@@ -3,6 +3,7 @@ import axios from "../../helpers/axiosConfig";
 
 const initialState = {
   shelters: [],
+  representative: {},
   loading: false,
   error: null,
 };
@@ -10,15 +11,8 @@ const initialState = {
 export const registerShelter = createAsyncThunk(
   "shelter/register",
   async (shelter, { getState, rejectWithValue }) => {
-    const {
-      user: { id },
-    } = getState().user;
-    const dataToSend = {
-      ...shelter,
-      idRepresentante: id,
-    };
     try {
-      const { data } = await axios.post("/refugios/registrar", dataToSend);
+      const { data } = await axios.post("/refugios/registrar", shelter);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje);

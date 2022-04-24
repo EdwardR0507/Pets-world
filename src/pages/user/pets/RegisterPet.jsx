@@ -8,7 +8,7 @@ import DateInput from "../../../ui/DateInput";
 import SelectInput from "../../../ui/SelectInput";
 import TextInput from "../../../ui/TextInput";
 import { getOwnerById } from "../../../features/owner/ownerSlice";
-import { registerPet } from "../../../features/pet/petSlice";
+import { registerPet } from "../../../features/user/userSlice";
 import { convertDate } from "../../../helpers/convertDate";
 
 const RegisterPet = () => {
@@ -25,7 +25,7 @@ const RegisterPet = () => {
     if (Object.keys(owner).length === 0) {
       dispatch(getOwnerById());
     }
-  }, [dispatch]);
+  }, [dispatch, owner]);
 
   // Mock data
   const otherRace = watch("raza") === "OTRA";
@@ -39,7 +39,7 @@ const RegisterPet = () => {
       label: "Gato",
     },
     {
-      value: "HAMSTER",
+      value: "HAMSTERS",
       label: "Hamster",
     },
   ];
@@ -104,7 +104,7 @@ const RegisterPet = () => {
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: "145vh",
+        height: "130vh",
       }}
     >
       <Typography variant="h2">Registro de Mascotas</Typography>
@@ -193,7 +193,7 @@ const RegisterPet = () => {
             fullWidth
             required
             pattern={{
-              value: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+              value: /^[a-zA-ZÀ-ÿ\d\s.,:()]{1,40}$/,
               message: "Solo se permiten letras, espacios y acentos",
             }}
             errors={errors}

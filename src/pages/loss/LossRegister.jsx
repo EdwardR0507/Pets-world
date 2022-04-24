@@ -3,24 +3,21 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-
 import TextInput from "../../ui/TextInput";
 import SelectInput from "../../ui/SelectInput";
 import { registerLoss } from "../../features/loss/lossSlice";
 import DateInput from "../../ui/DateInput";
 import { convertDate } from "../../helpers/convertDate";
-import { getPetsByOwnerId } from "../../features/pet/petSlice";
+import { getPetsByOwnerId } from "../../features/user/userSlice";
 import { useEffect } from "react";
 
 const LossRegister = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
-  const { pets } = useSelector((state) => state.pet);
+  const { loading } = useSelector((state) => state.shelter);
+  const { pets } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (pets.length === 0) {
-      dispatch(getPetsByOwnerId());
-    }
+    dispatch(getPetsByOwnerId());
   }, [dispatch]);
 
   const petsArray = pets.map((pet) => {
@@ -66,7 +63,7 @@ const LossRegister = () => {
           flexDirection: "column",
           justifyContent: "space-evenly",
           alignItems: "center",
-          height: "145vh",
+          height: "130vh",
         }}
       >
         <Typography variant="h2">Registrar Pérdida</Typography>
@@ -118,7 +115,7 @@ const LossRegister = () => {
               register={register}
               required
               pattern={{
-                value: /^[a-zA-ZÀ-ÿ\s\d-]{1,40}$/,
+                value: /^[a-zA-ZÀ-ÿ\s\d,-.:()]{1,40}$/,
                 message: "No se permiten caracteres especiales",
               }}
               errors={errors}
@@ -154,7 +151,7 @@ const LossRegister = () => {
               fullWidth
               required
               pattern={{
-                value: /^[a-zA-ZÀ-ÿ\d\s.,]{1,500}$/,
+                value: /^[a-zA-ZÀ-ÿ\d\s.,:()]{1,500}$/,
                 message: "Solo se permiten letras, espacios y acentos",
               }}
               errors={errors}

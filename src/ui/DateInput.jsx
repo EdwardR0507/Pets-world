@@ -10,6 +10,9 @@ const DateInput = ({ name = "date", label, register, errors, ...rest }) => {
         InputLabelProps={{
           shrink: true,
         }}
+        inputProps={{
+          max: "2022-04-25",
+        }}
         required
         {...register(name, {
           required: true,

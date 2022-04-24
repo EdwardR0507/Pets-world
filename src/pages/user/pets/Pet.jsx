@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const Pet = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { pets } = useSelector((state) => state.pet);
+  const { pets } = useSelector((state) => state.user);
 
   const pet = pets.find((pet) => pet.id === Number(id));
 

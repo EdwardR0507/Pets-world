@@ -8,8 +8,11 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ShelterCard from "../../../components/ShelterCard";
+
 const Shelters = () => {
+  const navigate = useNavigate();
   const { shelters } = useSelector((state) => state.shelter);
   const [search, setSearch] = useState("");
 
@@ -28,7 +31,11 @@ const Shelters = () => {
       }}
     >
       <Typography variant="h2">Mis Refugios</Typography>
-      <Button variant="contained" color="primary">
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate("/user/shelters/register")}
+      >
         Añadir nuevo refugio
       </Button>
       <Grid

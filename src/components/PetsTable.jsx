@@ -8,14 +8,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-const PetsTable = () => {
-  const navigate = useNavigate();
-
-  const { pets } = useSelector((state) => state.pet);
-
+const PetsTable = ({ pets, handleNavigate }) => {
   return (
     <TableContainer sx={{ maxHeight: "300px", width: "90%" }} component={Paper}>
       <Table stickyHeader aria-label="simple table">
@@ -44,7 +38,7 @@ const PetsTable = () => {
                     variant="contained"
                     color="primary"
                     size="small"
-                    onClick={() => navigate(`${pet.id}`)}
+                    onClick={() => handleNavigate(pet.id)}
                   >
                     Ver más
                   </Button>
