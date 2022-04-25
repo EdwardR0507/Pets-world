@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../helpers/axiosConfig";
+import { logout } from "../auth/authSlice";
 
 const initialState = {
   isOwner: false,
@@ -99,6 +100,13 @@ const userSlice = createSlice({
       state.owner = {};
       state.loading = false;
       state.error = payload;
+    });
+    // LOGOUT
+    builder.addCase(logout, (state) => {
+      state.isOwner = false;
+      state.owner = {};
+      state.loading = false;
+      state.error = null;
     });
   },
 });

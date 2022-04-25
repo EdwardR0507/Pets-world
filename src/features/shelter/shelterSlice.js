@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../helpers/axiosConfig";
+import { logout } from "../auth/authSlice";
 
 const initialState = {
   shelters: [],
@@ -38,6 +39,12 @@ const shelterSlice = createSlice({
       state.shelters = [];
       state.loading = false;
       state.error = error.message;
+    });
+    // LOGOUT
+    builder.addCase(logout, (state) => {
+      state.shelters = [];
+      state.loading = false;
+      state.error = null;
     });
   },
 });

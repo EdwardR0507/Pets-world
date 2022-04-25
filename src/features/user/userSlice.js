@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../helpers/axiosConfig";
+import { logout } from "../auth/authSlice";
 
 const initialState = {
   user: JSON.parse(window.localStorage.getItem("user")) || {},
@@ -169,6 +170,12 @@ const userSlice = createSlice({
       state.shelters = [];
       state.loading = false;
       state.error = error.message;
+    });
+    // LOGOUT
+    builder.addCase(logout, (state) => {
+      state.user = {};
+      state.pets = [];
+      state.shelters = [];
     });
   },
 });

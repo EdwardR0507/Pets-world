@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../helpers/axiosConfig";
+import { logout } from "../auth/authSlice";
 
 const initialState = {
   losses: [],
@@ -63,6 +64,13 @@ const lossSlice = createSlice({
     builder.addCase(getAllLosses.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
+    });
+
+    // LOGOUT
+    builder.addCase(logout, (state) => {
+      state.losses = [];
+      state.loading = false;
+      state.error = null;
     });
   },
 });
