@@ -60,7 +60,7 @@ const Shelters = () => {
               margin: "auto",
             }}
           >
-            No hay refugios registrados con ese nombre
+            No tienes refugios registrados
           </Typography>
         )}
       </Grid>

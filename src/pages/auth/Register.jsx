@@ -49,7 +49,11 @@ const Register = () => {
       .then(unwrapResult)
       .then((res) => {
         if (res) {
-          navigate("/auth/login");
+          Swal.fire({
+            icon: "success",
+            title: "Usuario registrado",
+            text: "El usuario ha sido registrado correctamente",
+          }).then(() => navigate("/auth/login"));
         }
       })
       .catch((err) => {

@@ -12,11 +12,12 @@ import { getOwnerById } from "../../../features/owner/ownerSlice";
 import { registerPet } from "../../../features/user/userSlice";
 import { convertDate } from "../../../helpers/convertDate";
 import { toBase64 } from "../../../helpers/convertToB64";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPet = () => {
   const [fileUrl, setFileUrl] = useState(null);
   const [visible, setVisibility] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { owner } = useSelector((state) => state.owner);
   const { loading } = useSelector((state) => state.user);
@@ -110,7 +111,7 @@ const RegisterPet = () => {
             icon: "success",
             title: "Mascota registrada",
             text: "La mascota ha sido registrada correctamente",
-          });
+          }).then(() => navigate("/user/home"));
         }
       })
       .catch((error) => {

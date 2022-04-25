@@ -12,10 +12,12 @@ import DateInput from "../../ui/DateInput";
 import { convertDate } from "../../helpers/convertDate";
 import { getPetsByOwnerId } from "../../features/user/userSlice";
 import { toBase64 } from "../../helpers/convertToB64";
+import { useNavigate } from "react-router-dom";
 
 const LossRegister = () => {
   const [fileUrl, setFileUrl] = useState(null);
   const [visible, setVisibility] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.shelter);
   const { pets } = useSelector((state) => state.user);
@@ -64,11 +66,15 @@ const LossRegister = () => {
     dispatch(registerLoss(newData))
       .then(unwrapResult)
       .then((res) => {
-        Swal.fire({
-          icon: "success",
-          title: "¡Registro exitoso!",
-          text: "El registro de la pérdida se ha realizado con éxito. Deseamos de todo corazón que encuentres pronto a tu mascota.",
-        });
+        if (res) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Registro exitoso!",
+            text: "El registro de la pérdida se ha realizado con éxito. Deseamos de todo corazón que encuentres pronto a tu mascota.",
+          }).then(() => {
+            navigate("/user/home");
+          });
+        }
       })
       .catch((err) => {
         Swal.fire({

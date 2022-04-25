@@ -55,6 +55,8 @@ const RegisterShelter = () => {
             icon: "success",
             title: "Refugio registrado",
             text: "El refugio ha sido registrado correctamente",
+          }).then(() => {
+            navigate("/user/home");
           });
         }
       })

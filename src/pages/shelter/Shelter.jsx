@@ -45,7 +45,7 @@ const Shelter = () => {
             justifyContent: "space-between",
             width: {
               xs: "100%",
-              md: "300px",
+              md: "500px",
             },
             height: {
               xs: "100%",
@@ -59,10 +59,7 @@ const Shelter = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "space-between",
-              height: {
-                xs: "100%",
-                md: "200px",
-              },
+              height: "60%",
             }}
           >
             <Typography variant="h2"> {shelter.nombre}</Typography>

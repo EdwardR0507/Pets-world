@@ -10,6 +10,7 @@ import {
   registerOwner,
   verifyOwner,
 } from "../../features/owner/ownerSlice";
+import { getShelters } from "../../features/shelter/shelterSlice";
 import { getUserByUsername } from "../../features/user/userSlice";
 
 const HomeUser = () => {
@@ -34,6 +35,10 @@ const HomeUser = () => {
   useEffect(() => {
     isOwner && dispatch(getOwnerById());
   }, [dispatch, isOwner]);
+
+  useEffect(() => {
+    dispatch(getShelters());
+  });
 
   const handleRegister = () => {
     if (isOwner) {
