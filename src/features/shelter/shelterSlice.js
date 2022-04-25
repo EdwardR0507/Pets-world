@@ -3,33 +3,15 @@ import axios from "../../helpers/axiosConfig";
 
 const initialState = {
   shelters: [],
-  representative: {},
   loading: false,
   error: null,
 };
 
-export const registerShelter = createAsyncThunk(
-  "shelter/register",
-  async (shelter, { getState, rejectWithValue }) => {
+export const getShelters = createAsyncThunk(
+  "shelter/list",
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/refugios/registrar", shelter);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data.mensaje);
-    }
-  }
-);
-
-export const getSheltersById = createAsyncThunk(
-  "shelter/data",
-  async (_, { getState, rejectWithValue }) => {
-    const {
-      user: { id },
-    } = getState().user;
-    try {
-      const { data } = await axios.post("/refugios/obtener/usuario", {
-        data: id,
-      });
+      const { data } = await axios.get("/refugios/obtener");
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje);
@@ -42,31 +24,17 @@ const shelterSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Register Shelter
-    builder.addCase(registerShelter.pending, (state) => {
+    // Get Shelters
+    builder.addCase(getShelters.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(registerShelter.fulfilled, (state) => {
-      state.loading = false;
-      state.error = null;
-    });
-    builder.addCase(registerShelter.rejected, (state, { error }) => {
-      state.loading = false;
-      state.error = error.message;
-    });
-
-    // Get Shelters By Id
-    builder.addCase(getSheltersById.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(getSheltersById.fulfilled, (state, { payload }) => {
+    builder.addCase(getShelters.fulfilled, (state, { payload }) => {
       state.shelters = payload;
       state.loading = false;
       state.error = null;
     });
-    builder.addCase(getSheltersById.rejected, (state, { error }) => {
+    builder.addCase(getShelters.rejected, (state, { error }) => {
       state.shelters = [];
       state.loading = false;
       state.error = error.message;

@@ -1,19 +1,15 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
-const Shelter = lazy(() => import("../pages/user/shelters/Shelter"));
-const Shelters = lazy(() => import("../pages/user/shelters/Shelters"));
-const RegisterShelter = lazy(() =>
-  import("../pages/user/shelters/RegisterShelter")
-);
+const SearchShelter = lazy(() => import("../pages/shelter/SearchShelters"));
+const Shelter = lazy(() => import("../pages/shelter/Shelter"));
 
-const ShelterRouter = () => {
+const UserShelterRouter = () => {
   return (
     <Routes>
-      <Route path="shelters/:id" element={<Shelter />} />
-      <Route path="shelters" element={<Shelters />} />
-      <Route path="shelters/register" element={<RegisterShelter />} />
+      <Route path="/" element={<SearchShelter />} />
+      <Route path=":id" element={<Shelter />} />
     </Routes>
   );
 };
-export default ShelterRouter;
+export default UserShelterRouter;

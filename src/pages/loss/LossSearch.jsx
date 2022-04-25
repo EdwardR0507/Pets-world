@@ -38,7 +38,7 @@ const LossSearch = () => {
         height: `${filteredLosses.length > 0 ? "100%" : "calc(70vh - 64px)"}`,
       }}
     >
-      <Typography variant="h2">Pérdidas</Typography>
+      <Typography variant="h2">Mascotas Perdidas</Typography>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}

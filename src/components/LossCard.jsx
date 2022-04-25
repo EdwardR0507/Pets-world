@@ -12,6 +12,7 @@ const LossCard = ({
   telefonoB,
   mensaje,
   fechaPerdida,
+  urlLink,
 }) => {
   return (
     <Card
@@ -27,7 +28,7 @@ const LossCard = ({
         component="img"
         alt="mascota perdida"
         height="150"
-        image="https://source.unsplash.com/random"
+        image={urlLink}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

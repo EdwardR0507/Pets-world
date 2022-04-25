@@ -2,13 +2,12 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-const Pet = () => {
+const Shelter = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { pets } = useSelector((state) => state.user);
+  const { shelters } = useSelector((state) => state.shelter);
 
-  const pet = pets.find((pet) => pet.id === Number(id));
-
+  const shelter = shelters.find((shelter) => shelter.id === Number(id));
   return (
     <Box
       sx={{
@@ -44,6 +43,10 @@ const Pet = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
+            width: {
+              xs: "100%",
+              md: "300px",
+            },
             height: {
               xs: "100%",
               md: "300px",
@@ -62,14 +65,12 @@ const Pet = () => {
               },
             }}
           >
-            <Typography variant="h2" align="center">
-              {pet.nombre}
-            </Typography>
+            <Typography variant="h2"> {shelter.nombre}</Typography>
             <Typography variant="h4">
-              {pet.especie} - {pet.raza || pet.razaEspecifica}
+              {shelter.numeroAsociados} Asociados
             </Typography>
             <Typography variant="h6">
-              Registrado el {pet.fechaRegistro}
+              Registrado el {shelter.fechaRegistro}
             </Typography>
           </Box>
           <Box
@@ -81,29 +82,25 @@ const Pet = () => {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="body2"> Fecha de Nacimiento: </Typography>
-              <Typography variant="body2">Color:</Typography>
-              <Typography variant="body2">Tamaño:</Typography>
-              <Typography variant="body2">Características:</Typography>
+              <Typography variant="body2">Dirección:</Typography>
+              <Typography variant="body2">Distrito:</Typography>
+              <Typography variant="body2">Número de Contacto:</Typography>
             </Stack>
             <Stack spacing={2}>
               <Typography variant="body2" align="right">
-                {pet.fechaNacimiento}
+                {shelter.direccion}
               </Typography>
               <Typography variant="body2" align="right">
-                {pet.color}
+                {shelter.distrito}
               </Typography>
               <Typography variant="body2" align="right">
-                {pet.tamaño}
-              </Typography>
-              <Typography variant="body2" align="right">
-                {pet.caracteristica}
+                {shelter.numeroContacto}
               </Typography>
             </Stack>
           </Box>
         </Box>
         <Box>
-          <img src={pet.urlLink} alt="foto" />
+          <img src={shelter.urlLink} alt="foto" />
         </Box>
       </Box>
 
@@ -114,4 +111,4 @@ const Pet = () => {
   );
 };
 
-export default Pet;
+export default Shelter;

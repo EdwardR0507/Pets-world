@@ -77,7 +77,7 @@ const Home = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-evenly",
+          justifyContent: "center",
           width: {
             xs: "100%",
             md: "40%",

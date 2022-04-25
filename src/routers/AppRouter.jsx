@@ -9,8 +9,8 @@ const AuthRouter = lazy(() => import("./AuthRouter"));
 const HomeUser = lazy(() => import("../pages/user/HomeUser"));
 const PetRouter = lazy(() => import("./PetRouter"));
 const LossRouter = lazy(() => import("./LossRouter"));
+const UserShelterRouter = lazy(() => import("./UserShelterRouter"));
 const ShelterRouter = lazy(() => import("./ShelterRouter"));
-
 const PublicRouter = lazy(() => import("./PublicRouter"));
 const PrivateRouter = lazy(() => import("./PrivateRouter"));
 
@@ -52,7 +52,7 @@ const AppRouter = () => {
             element={
               <PrivateRouter>
                 <PetRouter />
-                <ShelterRouter />
+                <UserShelterRouter />
               </PrivateRouter>
             }
           />
@@ -62,6 +62,15 @@ const AppRouter = () => {
             element={
               <PrivateRouter>
                 <LossRouter />
+              </PrivateRouter>
+            }
+          />
+
+          <Route
+            path="/shelters/*"
+            element={
+              <PrivateRouter>
+                <ShelterRouter />
               </PrivateRouter>
             }
           />

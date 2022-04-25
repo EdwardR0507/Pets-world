@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-const ShelterCard = ({ nombre, direccion, handleNavigate }) => {
+const ShelterCard = ({ nombre, direccion, handleNavigate, urlLink }) => {
   return (
     <Card
       sx={{
@@ -13,15 +13,11 @@ const ShelterCard = ({ nombre, direccion, handleNavigate }) => {
         boxShadow: "0px 0px 10px rgba(0,0,0,0.5)",
         wordBreak: "break-word",
         height: "100%",
+        paddingBottom: "5px",
         position: "relative",
       }}
     >
-      <CardMedia
-        component="img"
-        alt="mascota perdida"
-        height="150"
-        image="https://source.unsplash.com/random"
-      />
+      <CardMedia component="img" alt="refugio" height="150" image={urlLink} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {nombre}
@@ -32,8 +28,8 @@ const ShelterCard = ({ nombre, direccion, handleNavigate }) => {
         <Button
           sx={{
             position: "absolute",
-            bottom: "10px",
-            right: "20px",
+            bottom: "0",
+            right: "0",
           }}
           onClick={handleNavigate}
         >

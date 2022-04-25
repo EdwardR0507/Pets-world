@@ -1,17 +1,22 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, FormControl, Grid, TextField, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ShelterCard from "../../../components/ShelterCard";
-import { getSheltersByDNI } from "../../../features/user/userSlice";
+import ShelterCard from "../../components/ShelterCard";
+import { getShelters } from "../../features/shelter/shelterSlice";
 
-const Shelters = () => {
+const SearchShelters = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { shelters } = useSelector((state) => state.user);
+  const { shelters } = useSelector((state) => state.shelter);
+  const [search, setSearch] = useState("");
+
+  const filteredShelters = shelters.filter((shelter) => {
+    return shelter.nombre.toLowerCase().includes(search.toLowerCase());
+  });
 
   useEffect(() => {
-    dispatch(getSheltersByDNI());
+    dispatch(getShelters());
   }, [dispatch]);
 
   return (
@@ -21,28 +26,26 @@ const Shelters = () => {
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
-        height: {
-          xs: "100%",
-          md: "calc(100vh - 64px)",
-        },
       }}
     >
-      <Typography variant="h2">Mis Refugios</Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate("/user/shelters/register")}
-      >
-        Añadir nuevo refugio
-      </Button>
+      <Typography variant="h2">Refugios</Typography>
+      <FormControl sx={{ width: "20rem", margin: "20px auto" }}>
+        <TextField
+          label="Buscar Refugio"
+          name="nombre"
+          value={search}
+          type="search"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </FormControl>
       <Grid
         container
         spacing={{ xs: 2, md: 3, lg: 4 }}
         columns={{ xs: 4, sm: 8, md: 12, lg: 16 }}
         padding={{ xs: 2, md: 3, lg: 4 }}
       >
-        {shelters.length > 0 ? (
-          shelters.map((shelter) => (
+        {filteredShelters.length > 0 ? (
+          filteredShelters.map((shelter) => (
             <Grid item xs={2} sm={4} md={4} key={shelter.id}>
               <ShelterCard
                 nombre={shelter.nombre}
@@ -68,4 +71,4 @@ const Shelters = () => {
   );
 };
 
-export default Shelters;
+export default SearchShelters;

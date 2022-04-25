@@ -1,17 +1,8 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  List,
-  ListItem,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swall from "sweetalert2";
 import DashboardSection from "../../components/DashboardSection";
 import {
@@ -57,7 +48,11 @@ const HomeUser = () => {
         })
       )
         .then(unwrapResult)
-        .then(() => navigate("/user/pets/register"))
+        .then((res) => {
+          if (res) {
+            navigate("/user/pets/register");
+          }
+        })
         .catch((error) => {
           Swall.fire({
             icon: "error",
@@ -126,63 +121,15 @@ const HomeUser = () => {
           >
             <Avatar
               alt="User"
-              src="https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-              sx={{ width: 56, height: 56 }}
+              src={user.urlLink}
+              sx={{ width: 100, height: 100 }}
             />
             <Typography variant="h5">{user?.nombres}</Typography>
             <Typography variant="body1"> @{user?.nombreUsuario} </Typography>
           </Box>
-          {/* <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "space-around",
-              marginTop: "1rem",
-              height: "200px",
-            }}
-          >
-            <Typography variant="body1">
-              Últimas 3 mascotas registradas:
-            </Typography>
-            <List
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-around",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <ListItem>
-                <Link
-                  to="/user/pets/1"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Mascota 1
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link
-                  to="/user/pets/2"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Mascota 2
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link
-                  to="/user/pets/3"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Mascota 3
-                </Link>
-              </ListItem>
-            </List>
-          </Box> */}
           <Stack spacing={2}>
             <Button variant="contained" color="primary" onClick={handleMyLosts}>
-              Registrar pérdida
+              Registrar mascota perdida
             </Button>
             <Button
               variant="contained"
@@ -190,6 +137,13 @@ const HomeUser = () => {
               onClick={() => navigate("/loss/search")}
             >
               Buscar mascotas perdidas
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/shelters")}
+            >
+              Buscar refugios
             </Button>
           </Stack>
         </Box>
@@ -216,7 +170,7 @@ const HomeUser = () => {
           <Divider />
 
           <DashboardSection
-            title={"Ver Tus Mascotas"}
+            title="Ver Tus Mascotas"
             description="Realiza un seguimiento a tus mascotas registradas."
             handleClick={handleMyPets}
           />
@@ -224,7 +178,7 @@ const HomeUser = () => {
           <Divider />
 
           <DashboardSection
-            title="Ver Refugios"
+            title="Ver Tus Refugios"
             description="En caso encuentres animales sin hogar o necesites que cuiden a tu mascota, puedes contactar con un refugio. Si deseas abrir uno, puedes registrarlo."
             handleClick={handleMyShelters}
           />
