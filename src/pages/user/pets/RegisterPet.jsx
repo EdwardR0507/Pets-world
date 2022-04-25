@@ -151,6 +151,7 @@ const RegisterPet = () => {
       >
         <Box
           sx={{
+            width: "100%",
             display: "flex",
             flexDirection: {
               xs: "column",
@@ -296,15 +297,28 @@ const RegisterPet = () => {
                 ref={inputRef}
               />
             </IconButton>
-            {visible && (
-              <img
-                src={fileUrl}
-                alt={"pet"}
-                style={{
-                  maxWidth: "100%",
-                }}
-              />
-            )}
+            <Box
+              sx={{
+                marginTop: {
+                  xs: "4rem",
+                  md: "0",
+                },
+                width: {
+                  xs: "100%",
+                  md: "300px",
+                },
+              }}
+            >
+              {visible && (
+                <img
+                  src={fileUrl}
+                  alt={"pet"}
+                  style={{
+                    maxWidth: "100%",
+                  }}
+                />
+              )}
+            </Box>
           </Box>
         </Box>
         <Button

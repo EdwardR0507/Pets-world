@@ -96,8 +96,24 @@ const Shelter = () => {
             </Stack>
           </Box>
         </Box>
-        <Box>
-          <img src={shelter.urlLink} alt="foto" />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: {
+              xs: "100%",
+              md: "300px",
+            },
+          }}
+        >
+          <img
+            src={shelter.urlLink}
+            alt="refugio"
+            style={{
+              maxWidth: "100%",
+            }}
+          />
         </Box>
       </Box>
 

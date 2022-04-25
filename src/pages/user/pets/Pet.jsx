@@ -58,7 +58,7 @@ const Pet = () => {
               justifyContent: "space-between",
               height: {
                 xs: "100%",
-                md: "200px",
+                md: "150px",
               },
             }}
           >
@@ -102,8 +102,24 @@ const Pet = () => {
             </Stack>
           </Box>
         </Box>
-        <Box>
-          <img src={pet.urlLink} alt="foto" />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: {
+              xs: "100%",
+              md: "300px",
+            },
+          }}
+        >
+          <img
+            src={pet.urlLink}
+            alt="mascota"
+            style={{
+              maxWidth: "100%",
+            }}
+          />
         </Box>
       </Box>
 
