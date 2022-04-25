@@ -38,7 +38,7 @@ const HomeUser = () => {
 
   useEffect(() => {
     dispatch(getShelters());
-  });
+  }, [dispatch]);
 
   const handleRegister = () => {
     if (isOwner) {
